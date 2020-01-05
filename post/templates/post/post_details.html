@@ -1,0 +1,303 @@
+{% extends 'post/base.html' %}
+{% block content %}
+{% load static %}
+<div class="site-cover site-cover-sm same-height overlay single-page"
+    style="background-image: url('{%static 'images/img_2.jpg' %}');">
+    <div class="container">
+        <div class="row same-height justify-content-center">
+            <div class="col-md-12 col-lg-10">
+                <div class="post-entry text-center">
+                    <span
+                        class="post-category text-white {{ post_details.category.color }} mb-3">{{ post_details.category }}</span>
+                    <h1 class="mb-4"><a href="#">{{ post_details.title }}</a></h1>
+                    <div class="post-meta align-items-center text-center">
+                        <figure class="author-figure mb-0 mr-3 d-inline-block"><img
+                                src="{% static 'images/person_1.jpg' %}" alt="Image" class="img-fluid"></figure>
+                        <span class="d-inline-block mt-1">{{ post_details.author }}</span>
+                        <span>&nbsp;-&nbsp; {{ post_details.pub_date }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="site-section py-lg">
+    <div class="container">
+
+        <div class="row blog-entries element-animate">
+
+            <div class="col-md-12 col-lg-8 main-content">
+
+                <div class="post-content-body">
+                    {{ post_details.content  | safe}}
+                    <div class="row mb-5 mt-5">
+                        <div class="col-md-12 mb-4">
+                            <img src="{% static 'images/img_1.jpg' %}" alt="Image placeholder"
+                                class="img-fluid rounded">
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <img src="{% static 'images/img_2.jpg' %}" alt="Image placeholder"
+                                class="img-fluid rounded">
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <img src="{% static 'images/img_3.jpg' %}" alt="Image placeholder"
+                                class="img-fluid rounded">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="pt-5">
+                    <p>Category: <a href="{{ post_details.category.get_absolute_url }}">{{ post_details.category }}</a>
+                        Tags:
+                        <a href="#">#manila</a>,
+                        <a href="#">#asia</a></p>
+                </div>
+
+                <p>Viewed {{ total_views }} times
+                    <span class="mx-4"><span id="total-likes">{{ total_likes }}</span> likes</span>
+                    <span class="mx-4">{{ comments.count }} comments</span>
+                </p>
+                <div>
+                    <span class="btn btn-secondary icon-thumbs-up mr-1 p-1" id='do-like'> Like</span>
+                    <span class="btn btn-secondary icon-thumbs-down mr-1 p-1" id='do-like'> Dis-Like</span>
+                    <span class="btn btn-secondary icon-share p-1"> Share</span>
+                </div>
+
+
+                <div class="pt-5">
+                    <h3 class="mb-5">Comments</h3>
+                    <ul class="comment-list">
+                        {% for comment in comments %}
+                        <li class="comment">
+                            <div class="vcard">
+                                <img src="{% static 'images/person_1.jpg' %}" alt="Image placeholder">
+                            </div>
+                            <div class="comment-body">
+                                <h3>{{ comment.user }}</h3>
+                                <div class="meta">January 9, 2018 at 2:21pm</div>
+                                <p>{{ comment }}
+                                </p>
+                                <p><a href="#" class="reply rounded">Reply</a></p>
+                            </div>
+                            <ul class="children">
+                                <li class="comment">
+                                    <div class="vcard">
+                                        <img src="{% static 'images/person_1.jpg' %}" alt="Image placeholder">
+                                    </div>
+                                    <div class="comment-body">
+                                        <h3>Jean Doe</h3>
+                                        <div class="meta">January 9, 2018 at 2:21pm</div>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur
+                                            quidem laborum necessitatibus, ipsam impedit vitae autem, eum
+                                            officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum
+                                            impedit necessitatibus, nihil?</p>
+                                        <p><a href="#" class="reply rounded">Reply</a></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <!-- END comment-list -->
+
+                    <div class="comment-form-wrap pt-5">
+                        {% if user.is_authenticated %}
+                        <h3 class="mb-5">Leave a comment</h3>
+                        <form action="" class="p-5 bg-light" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea name="comment" id="message" cols="30" rows="10"
+                                    class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Post Comment" class="btn btn-primary">
+                            </div>
+
+                        </form>
+                        {% else %}
+                        <h5>Login to make a comment</h5>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- END main-content -->
+
+            <div class="col-md-12 col-lg-4 sidebar">
+                <div class="sidebar-box search-form-wrap">
+                    <form action="#" class="search-form">
+                        <div class="form-group">
+                            <span class="icon fa fa-search"></span>
+                            <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter">
+                        </div>
+                    </form>
+                </div>
+                <!-- END sidebar-box -->
+                <div class="sidebar-box">
+                    <div class="bio text-center">
+                        <img src="{% static 'images/person_2.jpg' %}" alt="Image Placeholder" class="img-fluid mb-5">
+                        <div class="bio-body">
+                            <h2>{{ post_details.author }}</h2>
+                            <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                Exercitationem facilis sunt repellendus excepturi beatae porro debitis voluptate
+                                nulla quo veniam fuga sit molestias minus.</p>
+                            {% comment %} <p><a href="#" class="btn btn-primary btn-sm rounded px-4 py-2">Read
+                                    my bio</a></p> {% endcomment %}
+                            <p class="social">
+                                <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
+                                <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
+                                <a href="#" class="p-2"><span class="fa fa-instagram"></span></a>
+                                <a href="#" class="p-2"><span class="fa fa-youtube-play"></span></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- END sidebar-box -->
+                <div class="sidebar-box">
+                    <h3 class="heading">Popular Posts</h3>
+                    <div class="post-entry-sidebar">
+                        <ul>
+                            <li>
+                                <a href="">
+                                    <img src="{% static 'images/img_1.jpg' %}" alt="Image placeholder" class="mr-4">
+                                    <div class="text">
+                                        <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
+                                        <div class="post-meta">
+                                            <span class="mr-2">March 15, 2018 </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- END sidebar-box -->
+
+                <div class="sidebar-box">
+                    <h3 class="heading">Categories</h3>
+                    <ul class="categories">
+                        {% for category in categories %}
+                        <li><a href="{{ category.get_absolute_url }}">{{ category }}<span></span></a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- END sidebar-box -->
+
+                <div class="sidebar-box">
+                    <h3 class="heading">Tags</h3>
+                    <ul class="tags">
+                        <li><a href="#">Travel</a></li>
+                        <li><a href="#">Adventure</a></li>
+                        <li><a href="#">Food</a></li>
+                        <li><a href="#">Lifestyle</a></li>
+                        <li><a href="#">Business</a></li>
+                        <li><a href="#">Freelancing</a></li>
+                        <li><a href="#">Travel</a></li>
+                        <li><a href="#">Adventure</a></li>
+                        <li><a href="#">Food</a></li>
+                        <li><a href="#">Lifestyle</a></li>
+                        <li><a href="#">Business</a></li>
+                        <li><a href="#">Freelancing</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- END sidebar -->
+
+        </div>
+    </div>
+</section>
+
+<div class="site-section bg-light">
+    <div class="container">
+
+        <div class="row mb-5">
+            <div class="col-12">
+                <h2>More Related Posts</h2>
+            </div>
+        </div>
+
+        <div class="row align-items-stretch retro-layout">
+
+            <div class="col-md-5 order-md-2">
+                <a href="single.html" class="hentry img-1 h-100 gradient"
+                    style="background-image: url('images/img_4.jpg');">
+                    <span class="post-category text-white bg-danger">Travel</span>
+                    <div class="text">
+                        <h2>The 20 Biggest Fintech Companies In America 2019</h2>
+                        <span>February 12, 2019</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-7">
+
+                <a href="single.html" class="hentry img-2 v-height mb30 gradient"
+                    style="background-image: url('images/img_1.jpg');">
+                    <span class="post-category text-white bg-success">Nature</span>
+                    <div class="text text-sm">
+                        <h2>The 20 Biggest Fintech Companies In America 2019</h2>
+                        <span>February 12, 2019</span>
+                    </div>
+                </a>
+
+                <div class="two-col d-block d-md-flex">
+                    <a href="single.html" class="hentry v-height img-2 gradient"
+                        style="background-image: url('images/img_2.jpg');">
+                        <span class="post-category text-white bg-primary">Sports</span>
+                        <div class="text text-sm">
+                            <h2>The 20 Biggest Fintech Companies In America 2019</h2>
+                            <span>February 12, 2019</span>
+                        </div>
+                    </a>
+                    <a href="single.html" class="hentry v-height img-2 ml-auto gradient"
+                        style="background-image: url('images/img_3.jpg');">
+                        <span class="post-category text-white bg-warning">Lifestyle</span>
+                        <div class="text text-sm">
+                            <h2>The 20 Biggest Fintech Companies In America 2019</h2>
+                            <span>February 12, 2019</span>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block custom_script %}
+<script>
+    $('#do-like').click(() => {
+        doLikeOrDislike(1)
+    })
+
+    $('#do-dislike').click(() => {
+        doLikeOrDislike(0)
+    })
+
+    doLikeOrDislike = (action) => {
+        $.ajax({
+            type: 'POST',
+            url: '{% url "post:reaction" %}',
+            data: {
+                action: action,
+                post: '{{post_details.id}}',
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: (res) => {
+                if(res.status) {
+                    $('#total-likes').text(res.total_likes)
+                } else {
+                    console.log('already liked')
+                }
+            }
+        });
+    }
+</script>
+{% endblock %}

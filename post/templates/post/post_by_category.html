@@ -1,0 +1,21 @@
+{% extends 'post/base.html' %}
+{% block content %}
+<div class="site-section bg-light">
+    <div class="container">
+        <div class="row align-items-stretch retro-layout-2">
+            {% for post in post %}
+            <div class="col-md-4">
+                <a href="{{ post.get_absolute_url }}" class="h-entry mb-30 v-height gradient"
+                    style="background-image: url('https://picsum.photos/200/300');">
+                    <span class="post-category text-white {{ post.category.color }}">{{ post.category }}</span>
+                    <div class="text">
+                        <h2>{{ post }}</h2>
+                        <span class="date">{{ post.pub_date }}</span>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
