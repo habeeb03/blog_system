@@ -3,8 +3,8 @@
   
  ## Features
  
-  #### User's can signup/login and upload their blogs.
-  #### Signedin users can react to the blog and comment to the blog.
+  #### * User's can signup/login and upload their blogs.
+  #### * Signedin users can react to the blog and comment to the blog.
   
 ## Installation
 
