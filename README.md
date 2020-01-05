@@ -1,4 +1,4 @@
-# blog_system
+# Blogging System
   A simple blogging system usign Python Django Framework.
   
  ## Features
@@ -16,6 +16,6 @@
   
   #### Run the app 
   
-    ```python manage.py runserver```
+    python manage.py runserver
   
               
